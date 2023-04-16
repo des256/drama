@@ -1,4 +1,4 @@
-# drama
+# DRAMA
 
 Exploration of ways to incorporate emotions/drama into AI NPCs or humanoid robots.
 
@@ -10,9 +10,3 @@ Exploration of ways to incorporate emotions/drama into AI NPCs or humanoid robot
 - See if Alpaca can understand who it is talking to? What would the memory need to contain?
 - Can Alpaca reason from different emotional states?
 - Get familiar with Whisper. Does it run locally? How fast is it? Can it listen well? Does it understand who is talking? Can it handle multiple voices?
-
-## Alpaca/LLaMA
-
-Yes it works, even on my laptop. It's rather slow, and I'm not sure what the templates mean. It's not very good at language in general, but there are seeds of very impressive work here and there. For instance, it can translate between languages, summarize, and respond like a chatbot.
-
-Perhaps bigger models give a better result. For this I should probably migrate to desktop.

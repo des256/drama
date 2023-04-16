@@ -1,0 +1,169 @@
+# LOG
+
+## Alpaca/LLaMA
+
+Yes it works, even on my laptop. It's rather slow, and I'm not sure what the templates mean. It's not very good at language in general, but there are seeds of very impressive work here and there. For instance, it can translate between languages, summarize, and respond like a chatbot.
+
+Perhaps bigger models give a better result. For this I should probably migrate to desktop.
+
+### Exploration
+
+#### Styles
+
+Using the continuation aspect of Alpaca, perhaps it is possible to style the output in different ways.
+
+Suggestion: ```Alfred is the butler of a big residence. A visitor appears at the door. Alfred opens and says:```
+
+Continuation: ```"Welcome, sir!" The guest smiles pleasantly and replies:"Thank you! Can I have some water?" Alfred brings him a glass of coldwater from the kitchen and offers it tohim witha smile. He takes his time sippingthe water slowly while looking around at thesurroundings..```
+
+Feeding the same suggestions, but with 'happy butler', 'angry butler', etc. yields
+
+Happy: ```"Good evening, welcome to our home!" The guest responds with thanks before asking for something specific - let's say they want water. At this point, Alfred will immediately get them whatever it is that they need without being asked again! Alfred can also be used as a butler in other NPC interactions and scenarios such as when interacting with guests at the door or responding to requests from visitors within your home. He's even capable of performing complex tasks, like serving food during dinner parties - he will bring out plates for each guest according to their assigned seats! Alfred can be used in a wide variety of situations and is sure to prove useful around the Simplex Manor household. With his help you won’t have to worry about managing your daily tasks, as Alfred takes care of all that – so you'll always know what needs doing next and never miss out on an opportunity!```
+
+Angry: ```"What do you want?". The visitor responds with “I am here to inspect your work”.```
+
+Sad: ```"Good afternoon, madam". He serves her tea in the drawing room while she tells him stories about her life as an adventuress. When it gets dark he lights up some candles for them to see each other's eyes better."You must be very tired after your travel" ,Alfred whispers and hands over a warm coat, that is perfect for cold nights in the woods.```
+
+Depressed: ```"Welcome, I'm so pleased you have come to visit!" The guest responds with gratitude before asking why he looks sad? Alfred replies that it’s hard for him to smile since his master passed away recently. He is depressed due to this loss in his life```
+
+Ecstatic: ```"Welcome, my friend! Please come in!" The guest enters with an air of mystery and elegance, smiling widely as he greets his host. He has piercing green eyes, luxurious dark hair, and wears a stylish black tailored suit decorated by gold embroidery on the lapels and cuffs. A gleaming golden pocket watch hangs from his vest. Alfred bows in respect before introducing him to the residence: "My friend is here for an unexpected visit but I assure you, he will be staying a while!" The guest smiles back with a mysterious air of confidence and politeness as they both make their way through the grandiose home. Alfred leads them onward until reaching his master's study - where it is clear that this visitor has been invited to dine privately with him in an intimate conversation over tea, coffee or whisky. "My friend," he says warmly as they enter and make their way towards the grand mahogany desk of which a decanter and glasses are already laid out upon it - "I'm sure you know why I have asked for your presence here this evening?".```
+
+This is not exactly what I am looking for. I want to merely style the response in some dramatic way. Maybe explore this separation some more.
+
+#### Separate Content from Style
+
+Given neutral content (possibly generated in another pass), is it possible to style it reliably?
+
+Using the following template:
+
+```
+Below is a simple input. Rephrase the input three times in ... style.
+
+### Input:
+Good afternoon, sir. What can I do for you?
+
+### Responses:
+```
+
+Neutral:
+```
+1. Good day to you, sir! How may I be of assistance? 
+2. Afternoon, Mr. —— ! Can I help you with something ?  
+3. Hello there, how might I assist you today?
+```
+
+Very angry:
+```
+1. "What are your demands?" 
+2. ""Show me what it is that you want!""  
+3. """Spit out exactly how you plan on getting the things you desire."""
+```
+
+Very happy:
+```
+1. Good afternoon! How may I assist you today? 
+2. Wonderful day - what would you like me to help with? 
+3. Great time of the year – how might I be helpful?
+```
+
+Very depressed:
+```
+1. Afternoon, mister. How may I help you today? 
+2. Good day, how might I be of assistance to you now?  
+3. Sir, what service are you looking for me to provide this afternoon?
+```
+
+That's already much better. The variations are very useful for animated results. The interpretation of the styles is not yet where I would like it to be. And for some reason it added many double quotes in the angry responses.
+
+#### Using Template as Memory
+
+How much is it possible to store facts in the template, and how does that color the responses?
+
+Using the following template:
+
+```
+Below is a simple input and some extra info. Rephrase and elaborate on the input three times.
+
+### Input:
+Michael walks into the building at night.
+
+### Extra Info:
+The building is a chocolate factory. It is raining outside.
+
+### Responses:
+```
+
+Responses:
+```
+1. Michael walks through the door of the chocolate factory, his feet squishing with each step in the wet rain outside.  
+2. He takes off his coat and hat as he enters; droplets cling to his black hair and dripping clothes. 
+3. A slight breeze rustles a few loose strands of his gray-blonde locks, while his eyes dart around the room's dimly lit corners in search for something familiar - or perhaps even better yet - unseen before tonight.
+```
+
+Alright, that is impressive, but maybe only the first sentence is useful.
+
+Extra info: ```Michael is scared.```
+
+```
+1. Michael walked nervously through the darkened halls of the building, his heart pounding in anticipation as he looked for signs of danger around each corner.  
+2. His fearful gaze darting from side to side, Michael slowly and cautiously made his way up a set of stairs towards an unknown destination. 
+3. With trembling steps, the young man advanced further into the building as he scanned its shadowy interiors for any sign of danger or threat that could potentially put him in harm’s way.
+```
+
+Interesting! That does seem to something slightly more controlable.
+
+Extra info: ```Michael wears a red coat.```
+
+```
+1) Michael walked into the building, wearing his bright-red coat.
+2) His gaze scanned around the darkened hallway as he continued onwards in his quest for entrance.
+3) The crimson hue of his garment gave off a warm and inviting glow that contrasted with its surroundings.
+```
+
+Seems the API with seed function is more capable of doing these multiple outputs. Let's try a single output three separate times:
+
+```
+Below is a simple input and some extra info. Rephrase the input and elaborate.
+
+### Input:
+Michael walks into the building at night.
+
+### Extra Info:
+The building is a chocolate factory. It is raining outside.
+
+### Response:
+```
+
+Responses:
+```
+<span style='background-color:#ee5147'> Michael walked through the gates of the chocolate factory, his feet squelching against the pavement with each step.</span> 
+The night was dark and wet--the rain making a steady drumming sound on his coat. He paused for a moment when he entered, taking in the warmth and sweet smells that filled the building. With an exhausted sigh of relief, Michael stepped deeper into the factory, ready to take on whatever challenges awaited him this night.
+```
+
+```
+As Michael walked through the doors of the chocolate factory, he was met with an inviting smell and the sound of rainfall against the window panes.
+```
+
+```
+As Michael walks through the doors of the chocolate factory, he can feel the warmth and sweet smell that immediately brings him joy from within. The rain on his face adds to the serenity as he takes in this familiar yet cozy atmosphere.
+```
+
+And when only using `rephrase`:
+
+```
+Michael walked through the rain, past the shuttered storefronts and abandoned wagons on Main Street, until he reached the majestic Chocolate Factory at night - its windows illuminated by the streetlamps that lined both sides of the cobblestone road.
+```
+
+```
+Michael walked through the pouring rain into an empty chocolate factory late at night, his shoes echoing off of the walls and ceiling as he went in.
+```
+
+```
+Michael walked through the rain to the chocolate factory, his boots echoing on the wet pavement as he went in for an evening of sweet treats and cocoa delights!
+```
+
+Ok, that seems very functional. So in order to generate story or content, the seed should be fixed, and otherwise the seed can vary to make it colorful.
+
+Generating story, maintaining facts and producing content would be useful in a writer/director role for the language model. Acting still requires more styling abilities, and it would also be interesting to turn LLM output into other types of information, so it can be used in some sort of cascade. At higher more abstract levels, the director/writer designs where the story goes and in what way drama should unfold. Who gets angry at what and why, etc. Maybe there is a way to store character properties, so that the directory/writer can use these to generate dramatic arcs.
+
+So let's separate generation of story and direction from acting, and focus more on the acting part. The technology is somewhat powerful in that you can 'program' parts in vague human language, instead of having to rigourously script everything. A quick model of an actor would be a general state of mind, and then getting tiny bits of information from the director to alter this state of mind, perform an activity, or say something.
