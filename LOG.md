@@ -1,6 +1,8 @@
 # LOG
 
-## Alpaca/LLaMA
+## April 16: Alpaca/LLaMA
+
+Using this repo: https://github.com/cocktailpeanut/dalai
 
 Yes it works, even on my laptop. It's rather slow, and I'm not sure what the templates mean. It's not very good at language in general, but there are seeds of very impressive work here and there. For instance, it can translate between languages, summarize, and respond like a chatbot.
 
@@ -167,3 +169,18 @@ Ok, that seems very functional. So in order to generate story or content, the se
 Generating story, maintaining facts and producing content would be useful in a writer/director role for the language model. Acting still requires more styling abilities, and it would also be interesting to turn LLM output into other types of information, so it can be used in some sort of cascade. At higher more abstract levels, the director/writer designs where the story goes and in what way drama should unfold. Who gets angry at what and why, etc. Maybe there is a way to store character properties, so that the directory/writer can use these to generate dramatic arcs.
 
 So let's separate generation of story and direction from acting, and focus more on the acting part. The technology is somewhat powerful in that you can 'program' parts in vague human language, instead of having to rigourously script everything. A quick model of an actor would be a general state of mind, and then getting tiny bits of information from the director to alter this state of mind, perform an activity, or say something.
+
+## April 17, Bit of Architecture
+
+So after sleeping and all that, I did some pondering. Currently the best description of what is happening is probably something along the lines of: A language model synthesizes thought patterns that it sampled from a huge amount of unstructured human input. If you compare this to a programming language, it means that it "can do everything", but the quality is a scale, whereas a programming language can only do very well-defined stuff, and the quality is either absolute perfection, or failure. This means that language models should be able to mimic artists, because they synthesize "any" thought pattern. That makes me curious if we can create a structure in which language models can perform tasks of a film crew or theatre troupe, or similar.
+
+### Film Crew
+
+So let's see. Let's take a film crew. There are many participants, all doing tiny things to make the whole film work. The model is not very big, so we want to limit the output size of each participant.
+
+#### Story Telling
+
+At the very top, there is a story teller that generates a fixed story. The model is probably too small to output an interesting story right away, so we need a hierarchy of storytelling. Let's focus on that first.
+
+It's not necessary that the output is in some kind of scripting language or other strict system. The output can just be human crap from the model.
+
